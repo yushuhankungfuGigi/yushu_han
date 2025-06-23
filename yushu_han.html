@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yushu Han | PhD Researcher in Materials Science</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --ease-quad: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+      --ease-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
+
+    html[data-theme='light'] {
+      --bg: #f0f4f8;
+      --text-header: #ffffff; /* Text in header will be white */
+      --text-primary: #1c2331;
+      --text-secondary: #4a5568;
+      --accent: #0072ff;
+      --accent-secondary: #00c6ff;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-border: #ffffff;
+      --shadow-color: rgba(0, 114, 255, 0.1);
+      --glow-color: rgba(0, 198, 255, 0.5);
+    }
+
+    html[data-theme='dark'] {
+      --bg: #0a192f;
+      --text-header: #e2e8f0;
+      --text-primary: #ccd6f6;
+      --text-secondary: #8892b0;
+      --accent: #64ffda;
+      --accent-secondary: #64ffda;
+      --card-bg: rgba(17, 34, 64, 0.75);
+      --card-border: rgba(100, 255, 218, 0.15);
+      --shadow-color: rgba(0, 0, 0, 0.2);
+      --glow-color: rgba(100, 255, 218, 0.2);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-secondary);
+      line-height: 1.7;
+      transition: background-color 0.4s var(--ease-quad), color 0.4s var(--ease-quad);
+      overflow-x: hidden;
+    }
+    
+    .background-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(170deg, var(--accent) -20%, var(--bg) 40%, var(--accent) 120%);
+      opacity: 0.1;
+      animation: animated-gradient 20s ease infinite alternate;
+      z-index: -1;
+    }
+    
+    @keyframes animated-gradient {
+      from { transform: scale(1) rotate(0deg); }
+      to { transform: scale(1.2) rotate(20deg); }
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* UPDATED: Header styling for background image */
+    header {
+      color: var(--text-header);
+      text-align: center;
+      padding: 6rem 2rem 5rem;
+      position: relative;
+      background-image: url('logo.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    
+    /* NEW: Dark overlay for readability */
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* 50% black overlay */
+      z-index: 1;
+    }
+    
+    /* NEW: Wrapper to place content above the overlay */
+    .header-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    header h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin: 0;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7); /* UPDATED: Stronger text shadow */
+    }
+
+    header p {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      margin: 0.5rem 0 0;
+      opacity: 0.95;
+      font-weight: 500;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); /* UPDATED: Added text shadow */
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.75rem;
+        margin-top: 2rem;
+    }
+
+    .social-links a {
+        color: var(--text-header);
+        font-size: 1.75rem;
+        transition: all 0.3s var(--ease-quad);
+        text-decoration: none;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); /* UPDATED: Added text shadow */
+    }
+
+    .social-links a:hover {
+        transform: translateY(-5px) scale(1.1);
+        color: var(--accent);
+    }
+    
+    html[data-theme='light'] .social-links a:hover {
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(255,255,255,0.8);
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s var(--ease-cubic), transform 1s var(--ease-cubic);
+    }
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin: 4rem 0;
+      box-shadow: 0 15px 40px -5px var(--shadow-color);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: transform 0.3s var(--ease-quad), box-shadow 0.3s var(--ease-quad), background 0.4s var(--ease-quad), border 0.4s var(--ease-quad);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px -10px var(--shadow-color), 0 0 15px var(--glow-color);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    h2 i { color: var(--accent); }
+
+    .profile { display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
+    .profile-img {
+      width: 180px; height: 180px;
+      border-radius: 50%; object-fit: cover;
+      border: 5px solid var(--accent);
+      padding: 5px;
+      background: var(--bg);
+      box-shadow: 0 0 30px var(--glow-color);
+      flex-shrink: 0;
+    }
+    .profile-info { flex: 1; min-width: 300px; }
+    
+    .quote {
+      font-style: italic;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-left: 4px solid var(--accent);
+      background: rgba(0,0,0,0.02);
+      border-radius: 0 8px 8px 0;
+    }
+    
+    ul { list-style: none; padding: 0; margin: 0; }
+    li { position: relative; padding-left: 1.75rem; margin-bottom: 0.8rem; }
+    li:last-child { margin-bottom: 0; }
+    li::before {
+      content: '▹'; position: absolute; left: 0; top: 0;
+      color: var(--accent); font-weight: bold;
+    }
+    li ul { margin-top: 0.8rem; }
+    
+    .badge {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 16px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem 0.5rem;
+    }
+
+    a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    
+    /* INTERACTIVE TIMELINE */
+    .timeline { position: relative; padding: 2rem 0; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      width: 3px;
+      height: 100%;
+      background: var(--accent-secondary);
+      transform: translateX(-50%);
+      opacity: 0.2;
+    }
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 1rem 0;
+      margin-bottom: 2rem;
+    }
+    .timeline-item:nth-child(odd) { left: 0; padding-right: 3rem; }
+    .timeline-item:nth-child(even) { left: 50%; padding-left: 3rem; }
+    
+    .timeline-dot {
+        content: '';
+        position: absolute;
+        top: 20px;
+        width: 16px;
+        height: 16px;
+        background: var(--bg);
+        border: 4px solid var(--accent);
+        border-radius: 50%;
+        z-index: 1;
+        box-shadow: 0 0 10px var(--glow-color);
+    }
+    .timeline-item:nth-child(odd) .timeline-dot { right: -8px; transform: translateX(50%); }
+    .timeline-item:nth-child(even) .timeline-dot { left: -8px; transform: translateX(-50%); }
+
+    .timeline-content {
+        padding: 1.5rem;
+        text-align: left;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        box-shadow: 0 10px 30px -15px var(--shadow-color);
+    }
+
+    .timeline-date { font-size: 0.9rem; font-weight: 600; color: var(--accent); margin-bottom: 0.5rem; }
+    .timeline h3 { color: var(--text-primary); font-size: 1.25rem; margin: 0; }
+    .timeline p { font-size: 1rem; margin: 0.5rem 0 0; }
+    
+    .timeline.visible::before { animation: drawLine 2s var(--ease-cubic) forwards; }
+    @keyframes drawLine { from { height: 0; } to { height: 100%; } }
+    .timeline-item.scroll-reveal { transform: translateY(50px); }
+    .timeline-item.scroll-reveal.visible { transform: translateY(0); }
+
+
+    /* Controls: Theme switcher, Back to top */
+    .controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; display: flex; flex-direction: column; gap: 0.75rem; }
+    .control-btn {
+        width: 44px; height: 44px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 50%;
+        color: var(--text-secondary);
+        font-size: 18px;
+        cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 5px 15px var(--shadow-color);
+        backdrop-filter: blur(10px);
+        transition: all 0.2s var(--ease-quad);
+    }
+    .control-btn:hover { color: var(--accent); transform: translateY(-3px) scale(1.1); }
+    
+    #back-to-top { opacity: 0; visibility: hidden; }
+    #back-to-top.visible { opacity: 1; visibility: visible; }
+    
+    html[data-theme='dark'] .theme-switcher .fa-moon { display: none; }
+    html[data-theme='light'] .theme-switcher .fa-sun { display: none; }
+
+    footer {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        margin-top: 2rem;
+        background: var(--bg);
+        border-top: 1px solid var(--card-border);
+    }
+    
+    @media(max-width: 768px) {
+        .timeline::before { left: 10px; }
+        .timeline-item { width: 100%; padding: 0 0 2rem 0; }
+        .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; padding-left: 2.5rem; }
+        .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 10px; }
+        .profile { flex-direction: column; }
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="background-glow"></div>
+
+  <header class="scroll-reveal">
+    <div class="header-content">
+      <h1>Yushu Han</h1>
+      <p>PhD Researcher in Materials Science</p>
+      <div class="social-links">
+          <a href="mailto:yushuhan@liverpool.ac.uk" aria-label="Email Yushu Han">
+              <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/yushu-han-844072306/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+              <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://x.com/YONGxiHan" target="_blank" rel="noopener noreferrer" aria-label="Twitter Profile">
+              <i class="fab fa-twitter"></i>
+          </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      <section class="card profile-card scroll-reveal">
+        <div class="profile">
+          <img src="yushu.png" class="profile-img" alt="Yushu Han photo" onerror="this.onerror=null;this.src='https://placehold.co/180x180/00c6ff/FFFFFF?text=YH';">
+          <div class="profile-info">
+            <h2><i class="fas fa-hand-sparkles"></i>Hello, I'm Yushu</h2>
+            <div class="quote">“Research should spark curiosity and make science more accessible, reliable, and fun.”</div>
+            <ul>
+                <li><b>Email:</b> <a href="mailto:yushuhan@liverpool.ac.uk">yushuhan@liverpool.ac.uk</a></li>
+                <li><b>Mobile:</b> +44 7419 367 621</li>
+                <li><b>Location:</b> Liverpool, United Kingdom</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      
+      <section class="card scroll-reveal" id="projects">
+        <h2><i class="fas fa-rocket"></i>Featured Projects</h2>
+        <ul>
+          <li><b>Multichannel Colorimetric Array for Rapid Porosity Screening</b><span class="badge">Lead Developer</span>
+            <ul>
+              <li>Engineered a fast, affordable porosity classification tool (30× throughput, £200 total).</li>
+              <li>Achieved 98% accuracy compared to gravimetric methods for 50+ materials.</li>
+              <li>Created risk assessments and SOPs for daily lab safety.</li>
+            </ul>
+          </li>
+          <li><b>Calorimetry Chamber for High-throughput Gas Adsorption</b><span class="badge">Co-Developer</span>
+            <ul>
+              <li>Designed a 96-sample calorimeter with a user-friendly GUI.</li>
+              <li>Reduced manual workload by 20 days per batch and empowered non-specialists.</li>
+            </ul>
+          </li>
+          <li><b>Robotic Fume-hood Platform</b><span class="badge">Co-Developer</span>
+            <ul>
+              <li>Built an automated synthesis platform for unattended material discovery.</li>
+              <li>Integrated analytics and reduced manual labor by 70%.</li>
+              <li>Used dashboards for live project management (Excel & Python).</li>
+            </ul>
+          </li>
+           <li><b>CO₂ Capture Pipeline</b><span class="badge">Team Member</span>
+            <ul>
+              <li>Helped screen 2,000+ candidates for CO₂ capture with 100% system uptime.</li>
+              <li>Shortlisted top adsorbents (~5% hit rate) for further R&D.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section id="journey" class="scroll-reveal">
+        <h2><i class="fas fa-route"></i>Career & Education Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">May 2024 – Present</div>
+                    <h3>Instrument Representative Trainer</h3>
+                    <p><b>AIC Group, Liverpool</b></p>
+                    <ul>
+                      <li>Trained 20+ users on gas adsorption analyzers and maintained SOPs.</li>
+                      <li>Collaborated with engineers for weekly maintenance and troubleshooting.</li>
+                      <li>Presented real-world gas analyzer applications to industry partners.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Sep 2022 – Mar 2024</div>
+                    <h3>Lab Demonstrator</h3>
+                    <p><b>University of Liverpool</b></p>
+                     <ul>
+                      <li>Supervised physical chemistry labs (up to 30 students per session).</li>
+                      <li>Ensured health & safety compliance; supported international students.</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="timeline-item scroll-reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2021 – 2025 (Expected)</div>
+                    <h3>PhD, Materials Science</h3>
+                    <p><b>University of Liverpool</b></p>
+                    <ul>
+                        <li>Project: Accelerating porosity screening via automation</li>
+                        <li>Group: Cooper Group, Material Innovation Factory</li>
+                    </ul>
+                </div>
+            </div>
+             <div class="timeline-item scroll-reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Mar 2019 – Oct 2019</div>
+                    <h3>Sales Manager Assistant Intern</h3>
+                    <p><b>Merck (Milli-Q Team), Shanghai</b></p>
+                    <ul>
+                        <li>Liaised with clients, translated technical requirements, and processed service orders.</li>
+                        <li>Maintained contact with installed-base customers for upgrades/maintenance.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2018 – 2021</div>
+                    <h3>MSc, Physical Chemistry</h3>
+                    <p><b>East China University of Science & Technology</b></p>
+                    <ul>
+                        <li>Thesis: Porous Aromatic Frameworks for ammonia & CO₂ capture</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item scroll-reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2014 – 2018</div>
+                    <h3>BSc, Applied Chemistry</h3>
+                    <p><b>Jilin Normal University</b></p>
+                    <ul>
+                        <li>Thesis: HPLC-MS study of photocatalytic degradation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section class="card scroll-reveal" id="skills">
+        <h2><i class="fas fa-tools"></i>Technical Skills & Tools</h2>
+        <ul>
+          <li><b>Programming:</b> Python (NumPy, pandas, OpenCV, SAM), Git</li>
+          <li><b>Automation Platforms:</b> Chemspeed Swing, Opentrons OT-2, Quantos, Crystal Swile</li>
+          <li><b>Instruments:</b> PXRD, SC-PXRD, DSC, LC-MS, NMR, FTIR, UV-Vis</li>
+          <li><b>Software:</b> VS Code, MATLAB, Asana, Excel</li>
+          <li><b>Lab:</b> Material synthesis, QC benchmarks, chemical protocol optimization, risk assessment writing</li>
+        </ul>
+      </section>
+      
+      <section class="card scroll-reveal" id="publications">
+        <h2><i class="fas fa-book-open"></i>Publications & Presentations</h2>
+         <ul>
+           <li>Han, Y.S.; et al. <b>Defect-Engineering of Anionic Porous Aromatic Frameworks for Ammonia Capture</b>. <i>ACS Appl. Polym. Mater.</i> 2021, 3(9), 4534–4542.</li>
+           <li>Han, Y.S.; et al. <b>Accelerated Porosity Screening Using a Multichannel Colorimetric Array</b>. <i>Angew. Chem. Int. Ed.</i> (under review).</li>
+           <li><b>Poster Presentations:</b> FOA15 (2025), UKPorMat (2024), EUROMOF (2023), UOL PGR Symposium (First Prize)</li>
+           <li><b>Other projects:</b> Carbon/polydots, porous ionic polymers, adsorption school coursework</li>
+         </ul>
+      </section>
+
+      <section class="card scroll-reveal" id="awards">
+        <h2><i class="fas fa-trophy"></i>Awards & Recognition</h2>
+        <ul>
+           <li><b>UOL PGR Symposium</b> – First Prize, Poster Presentation</li>
+           <li>EUROMOF 2023 – Poster Presenter</li>
+           <li>UKPorMat 2024 – Poster Presenter</li>
+           <li>FOA15 2025 – Invited Speaker</li>
+           <li><b>Summer Schools:</b> BMVA Machine Vision, Adsorption Science</li>
+         </ul>
+      </section>
+
+       <section class="card scroll-reveal" id="hobbies">
+          <h2><i class="fas fa-palette"></i>Hobbies & Personal Interests</h2>
+          <ul>
+            <li><b>Photography:</b> Capturing campus life, science-in-action, and Liverpool’s landscapes.</li>
+            <li><b>Hiking & Nature:</b> Exploring the Lake District & British countryside.</li>
+            <li><b>Cooking:</b> Creating fusion cuisine—favourite: Sichuan & British.</li>
+            <li><b>Coding for Fun:</b> Building Python tools and science visualizations.</li>
+            <li><b>Piano & Music:</b> Enjoys classical, movie soundtracks, and Lo-fi.</li>
+            <li><b>Reading:</b> Science magazines and contemporary fiction.</li>
+          </ul>
+          <div class="quote">“I believe in balance—science, art, and connecting with people.”</div>
+        </section>
+
+      <section class="card scroll-reveal" id="referees">
+        <h2><i class="fas fa-users"></i>Referees</h2>
+         <ul>
+           <li><b>Prof. Andrew I. Cooper</b> — <a href="mailto:aicooper@liverpool.ac.uk">aicooper@liverpool.ac.uk</a><br>
+             Academic Director, Materials Innovation Factory, University of Liverpool</li>
+           <li><b>Dr. Zuzana Oriou</b> — <a href="mailto:Z.Oriou@liverpool.ac.uk">Z.Oriou@liverpool.ac.uk</a><br>
+             Research Manager, AIC Group</li>
+           <li><b>Dr. Zhang Qing</b> — <a href="mailto:Ronnie.zhang@merckgroup.com">Ronnie.zhang@merckgroup.com</a><br>
+             Head of National Sales – Merck Chemical Technology, Shanghai</li>
+         </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Yushu Han. All rights reserved.</p>
+    <p>Liverpool, United Kingdom</p>
+  </footer>
+
+  <div class="controls">
+    <button id="theme-switcher" class="control-btn theme-switcher" title="Toggle Theme">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+    <button id="back-to-top" class="control-btn" title="Back to Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // --- THEME SWITCHER ---
+      const themeSwitcher = document.getElementById('theme-switcher');
+      const htmlEl = document.documentElement;
+
+      const setTheme = (theme) => {
+        htmlEl.setAttribute('data-theme', theme);
+        localStorage.setItem('yushu_theme', theme);
+      };
+      
+      themeSwitcher.addEventListener('click', () => {
+        const currentTheme = htmlEl.getAttribute('data-theme');
+        setTheme(currentTheme === 'light' ? 'dark' : 'light');
+      });
+
+      const savedTheme = localStorage.getItem('yushu_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      setTheme(savedTheme);
+
+      // --- SCROLL REVEAL ANIMATION ---
+      const revealElements = document.querySelectorAll('.scroll-reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.05 });
+      revealElements.forEach(el => observer.observe(el));
+
+      // --- BACK TO TOP BUTTON ---
+      const backToTopBtn = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          backToTopBtn.classList.add('visible');
+        } else {
+          backToTopBtn.classList.remove('visible');
+        }
+      });
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
